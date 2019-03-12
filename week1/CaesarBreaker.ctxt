@@ -1,4 +1,14 @@
 #BlueJ class context
 comment0.target=CaesarBreaker
 comment0.text=\r\n\ Write\ a\ description\ of\ CaesarBreaker\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-numComments=1
+comment1.params=message
+comment1.target=int[]\ countLetters(java.lang.String)
+comment2.params=values
+comment2.target=int\ indexOfMax(int[])
+comment3.params=encrypted
+comment3.target=java.lang.String\ decrypt(java.lang.String)
+comment4.params=message\ start
+comment4.target=java.lang.String\ halfOfString(java.lang.String,\ int)
+comment5.params=
+comment5.target=void\ testDecrypt()
+numComments=6

@@ -1,3 +1,5 @@
+import edu.duke.*;
+
 /**
  * Write a description of CaesarBreaker here.
  * 
@@ -9,9 +11,9 @@ public class CaesarBreaker {
         int[] counts = new int[26];
         String alpha = "abcdefghijklmnopqrstuvwxyz";
         for (int k = 0; k < message.length(); k++) {
-            char c = message.charAt(k);
+            char c = Character.toLowerCase(message.charAt(k));
             int idx = alpha.indexOf(c);
-            if (idx != -1) counts[idx]++;
+            if (idx != -1) counts[idx] += 1;
         }
         return counts;
     }
@@ -28,14 +30,31 @@ public class CaesarBreaker {
         return index;
     }
     
+    public int getKey(String s) {
+        int[] freqs = countLetters(s);
+        int max = indexOfMax(freqs);
+        
+        return max < 4 ? 26-(26-(4-max)) : 26-(max-4);
+    }
+    
     public String decrypt(String encrypted) {
         CaesarCipher cc = new CaesarCipher();
-        int[] freqs = countLetters(encrypted);
-        int commonLetterIdx = indexOfMax(freqs);
-        int decryptKey = commonLetterIdx - 4;
-        if (commonLetterIdx < 4) decryptKey = 26 - (4 - commonLetterIdx);
+        int decryptKey = getKey(encrypted);
         
-        return cc.encrypt(encrypted, 26-decryptKey);
+        return cc.encrypt(encrypted, decryptKey);
+    }
+    
+    public String decryptTwoKeys(String encrypted) {
+        String first = halfOfString(encrypted, 0);
+        String second = halfOfString(encrypted, 1);
+        
+        CaesarCipher cc = new CaesarCipher();
+        int dkey1 = getKey(first);
+        int dkey2 = getKey(second);
+        
+        System.out.println("original key 1: " + (26-dkey1) + "\noriginal key 2: " + (26-dkey2));
+    
+        return cc.encryptTwoKeys(encrypted, dkey1, dkey2);
     }
     
     public String halfOfString(String message, int start) {
@@ -48,10 +67,12 @@ public class CaesarBreaker {
     
     public void testDecrypt() {
         CaesarCipher cc = new CaesarCipher();
-        String msg = "MY PASSWORD IS YOU SHALL NOT DECRYPT MEEEEEEEEEEEEEEEEEEEEEEEE!";
-        int key = 11;
-        String encrypted = cc.encrypt(msg, 26 - key);
-        String decrypted = decrypt(encrypted);
-        System.out.println(encrypted + "\n" + decrypted);
+        
+        FileResource fr = new FileResource("data/plain.txt");
+        String plainFile = fr.asString();
+        String encrypted2 = cc.encryptTwoKeys(plainFile, 17, 4);
+        System.out.println(encrypted2);
+        String decrypted2 = decryptTwoKeys(encrypted2);
+        System.out.println(decrypted2);
     }
 }

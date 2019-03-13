@@ -13,6 +13,7 @@ public class WordLengths {
             for (int k = 0; k < word.length(); k++){
                 char currChar = word.charAt(k);
                 if (currChar == '-' 
+                    && word.length() < k
                     && Character.isLetter(word.charAt(k-1)) 
                     && Character.isLetter(word.charAt(k+1))){
                         letters++;
@@ -43,7 +44,7 @@ public class WordLengths {
     }
 
     public void testCountWordLengths() {
-        FileResource fr = new FileResource("data/data.txt");
+        FileResource fr = new FileResource("data/manyWords.txt");
         int[] counts = new int[31];
         countWordLengths(fr, counts);
         System.out.println("Most common length of word: " + indexOfMax(counts));

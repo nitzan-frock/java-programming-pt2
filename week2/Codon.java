@@ -58,8 +58,8 @@ public class Codon {
             codonCounts.clear();
             buildCodonMap(k, dna);
             
-            int start = 1;
-            int end = 5;
+            int start = 7;
+            int end = 7;
             
             System.out.println("Reading frame starting with "+k+" results in "+codonCounts.size()+" unique codons");
             System.out.println("Most common codon: "+getMostCommonCodon()+" "+codonCounts.get(getMostCommonCodon()));
